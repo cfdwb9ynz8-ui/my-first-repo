@@ -306,6 +306,16 @@ footer{padding-block:24px;color:var(--muted);font-size:.85rem;text-align:center}
 <div class="toast" id="toast" hidden></div>
 
 <script>
+/* Always open at the top (logo), even if the browser remembers an old scroll position or the link has #order */
+try{ if("scrollRestoration" in history) history.scrollRestoration="manual"; }catch(_){}
+function toTop(){
+  if(location.hash){ try{ history.replaceState(null,"",location.pathname+location.search); }catch(_){} }
+  const html=document.documentElement, prev=html.style.scrollBehavior;
+  html.style.scrollBehavior="auto"; window.scrollTo(0,0); html.style.scrollBehavior=prev;
+}
+toTop();
+window.addEventListener("load",toTop);
+window.addEventListener("pageshow",e=>{ if(e.persisted) toTop(); });
 const PHONE = "79284884464";
 const MENU = [
   {g:"Торты", items:[
